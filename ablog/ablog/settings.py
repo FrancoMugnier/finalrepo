@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-sjw7y-v9j8r0t*ltfd#*y!yv(rreo)x46kfb^89)pspi4%aq*='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['francomugnier1998.pythonanywhere.com']
 
 
 # Application definition
@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'ablog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'francomugnier199$infofranco',
+        'USER': 'francomugnier199',
+        'PASSWORD': 'Tornado2017yFox2011',
+        'HOST': 'francomugnier1998.mysql.pythonanywhere-services.com',  # O la IP del servidor MySQL
+        'PORT': '3306',       # Puerto por defecto
     }
 }
 
@@ -122,6 +126,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT= os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
      os.path.join(BASE_DIR, 'static'),
 )
