@@ -13,5 +13,8 @@
                 {{ form.as_p }}
                 <button class="btn btn-outline-secondary">Agregar comentario</button>
         </div>
+    {% else %}
+        </br>
+        <h2>Debes ingresar sesion para agregar un comentario</h2>
     {% endif %}
 {% endblock %}
