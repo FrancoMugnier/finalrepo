@@ -4,9 +4,10 @@
     {{ post.title }}
 {% endblock %}
 {% block content %}
-
-<h1>{{ post.title }}  - {{ post.author.id }} </h1>
-<small>By: 
+<br/><br/>
+<h1>{{ post.title }}</h1>
+<br/><br/>
+<small>By:
     {{ post.author }}
     {{ post.post_date }}
     {% if user.is_authenticated %}
@@ -24,15 +25,15 @@
 <br/><br/>
 {{ post.body|safe }}
 
-
+<br/><br/><br/>
 
 <form action="{% url 'like_post' post.pk %}" method="POST">
     {% csrf_token %}
     {% if user.is_authenticated %}
         {% if liked %}
-            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm">UnLike</button> 
+            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm">UnLike</button>
         {% else %}
-            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm">Like</button> 
+            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm">Like</button>
         {% endif %}
     {% else %}
         <small><a href="{% url 'login' %}">Ingresar</a> para dar like</small>
@@ -40,6 +41,7 @@
         - {{ total_likes }} Likes
 </form>
 
+<br/><br/><br/>
 
 <div class="card mb-3">
     <div class="row g-0">
@@ -91,7 +93,7 @@
 
     {% for comment in post.comments.all %}
         <strong>
-            {{ comment.name }} - 
+            {{ comment.name }} -
             {{ comment.date_added }}
         </strong>
         <br/>
@@ -107,3 +109,4 @@
 <br/><br/>
 
 {% endblock %}
+

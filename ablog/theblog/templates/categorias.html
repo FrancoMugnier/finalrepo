@@ -3,28 +3,28 @@
 {% block content %}
 
 {% if category_posts %}
-    <h1>{{ cats }}</h1>
-
+    <br/>
+    <h1>Categoria: {{ cats }}</h1>
+    <br/>
     <ul>
         {% for post in category_posts %}
             <li><a href="{% url 'detalle-articulo' post.pk %}">
-                {{ post.title }}</a> 
-                {{post.author }} -
+                {{ post.title }}</a>
+                {{ post.author }} -
                 {{ post.post_date }} -
                 <small>
                     {% if user.is_authenticated %}
-                    
                         <a href="{% url 'editar-articulo' post.pk %}">(Editar Post)</a>
-        
                         <a href="{% url 'eliminar-articulo' post.pk %}">(Eliminar Post)</a>
-                        
                     {% endif %}
                 </small><br/>
-                {{ post.body }}</li>
-        
+                <!-- se uso safe para renderizar correctamente -->
+                {{ post.body|safe }}
+            </li>
         {% endfor %}
     </ul>
 {% else %}
+    <br/><br/>
     <h2>Esta página no existe...</h2>
 {% endif %}
 

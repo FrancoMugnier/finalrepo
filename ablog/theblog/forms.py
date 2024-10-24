@@ -58,3 +58,15 @@ class CommentForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+#nuevo...
+class DateFilterForm(forms.Form):
+    YEAR_CHOICES = [(year, year) for year in range(2020, 2025)]  # Cambia el rango de años según lo necesites
+    MONTH_CHOICES = [
+        (1, 'Enero'), (2, 'Febrero'), (3, 'Marzo'), (4, 'Abril'),
+        (5, 'Mayo'), (6, 'Junio'), (7, 'Julio'), (8, 'Agosto'),
+        (9, 'Septiembre'), (10, 'Octubre'), (11, 'Noviembre'), (12, 'Diciembre'),
+    ]
+
+    month = forms.ChoiceField(choices=MONTH_CHOICES, required=True, label='Mes')
+    year = forms.ChoiceField(choices=YEAR_CHOICES, required=True, label='Año')

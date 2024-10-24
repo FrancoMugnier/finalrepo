@@ -38,7 +38,8 @@
                   <a class="nav-link" href="{% url 'category-list' %}">Categorias</a>
                 </li>
               {% endif %}
-              <!--  vamos a probar aca-->
+
+              <!-- Sección de enlaces adicionales -->
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a>
               </li>
@@ -50,11 +51,11 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{% url 'agregar-post' %}">Agregar Post</a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'agregar-categoria' %}">Agregar Categoria</a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <form method="POST" action="{% url 'logout' %}" style="display:inline;">
                         {% csrf_token %}
@@ -73,6 +74,37 @@
                   </li>
               {% endif %}
             </ul>
+
+            <!-- Formulario de filtrado por fecha -->
+            <form method="POST" action="{% url 'filter_by_date' %}" class="d-flex">
+              {% csrf_token %}
+              <div class="form-group me-2">
+                <select name="month" class="form-control">
+                  <option value="1">Enero</option>
+                  <option value="2">Febrero</option>
+                  <option value="3">Marzo</option>
+                  <option value="4">Abril</option>
+                  <option value="5">Mayo</option>
+                  <option value="6">Junio</option>
+                  <option value="7">Julio</option>
+                  <option value="8">Agosto</option>
+                  <option value="9">Septiembre</option>
+                  <option value="10">Octubre</option>
+                  <option value="11">Noviembre</option>
+                  <option value="12">Diciembre</option>
+                </select>
+              </div>
+              <div class="form-group me-2">
+                <select name="year" class="form-control">
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-outline-light">Filtrar</button>
+            </form>
+            <!-- Fin del formulario de filtrado por fecha -->
+
             {% if user.is_authenticated %}
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                   <li class="nav-item dropdown">
@@ -85,18 +117,13 @@
                         <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Editar página del Perfil</a></li>
                         <li><a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Ir a Pagina del Perfil</a></li>
                       {% else %}
-                        <li><a class="dropdown-item" href="{% url 'create_profile_page'%}">Crear página del Perfil</a></li>                       
+                        <li><a class="dropdown-item" href="{% url 'create_profile_page'%}">Crear página del Perfil</a></li>
                       {% endif %}
                     </ul>
                   </li>
                 </ul>
             {% endif %}
-            <!--
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="buscar algo..." aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form>
-              -->
+
           </div>
         </div>
       </nav>

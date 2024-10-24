@@ -2,14 +2,15 @@
 {% block title %}
     Categorias
 {% endblock %}
+<br/>
 {% block content %}
-
+    <br/>
     <h1>Categorias</h1>
-
+    <br/>
     {% for item in cat_menu_list %}
 
-        <h4><a class="dropdown-item" href="{% url 'category' item %}"> {{ item }} </a></h4>
-                
+        <h4><a class="dropdown-item" href="{% url 'category' item %}"> * {{ item }} * </a></h4>
+
     {% endfor %}
 
 {% endblock %}

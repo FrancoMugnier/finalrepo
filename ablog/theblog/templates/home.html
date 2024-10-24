@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<br/><br/>
+<h1> - - Publicaciones del Blog - -</h1>
 <br/>
-<h1>Publicaciones...</h1>
 <ul>
 {% for post in object_list %}
+    <br/>
     <li><a href="{% url 'detalle-articulo' post.pk %}">
-        {{ post.title }}</a> 
+        {{ post.title }}</a>
         - <a href="{% url 'category' post.category %}">{{ post.category }}</a>-
          {{post.author }} -
          {{ post.post_date }} -
@@ -14,7 +16,7 @@
             {% if user.is_authenticated %}
 
                 {% if user.id == post.author.id %}
-            
+
                     <a href="{% url 'editar-articulo' post.pk %}">(Editar Post)</a>
 
                     <a href="{% url 'eliminar-articulo' post.pk %}">(Eliminar Post)</a>
@@ -22,7 +24,7 @@
                 {% endif %}
 
             {% endif %}
-            
+
         </small><br/>
         {{ post.snippet }}</li>
 

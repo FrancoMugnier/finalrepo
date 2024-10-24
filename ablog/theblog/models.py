@@ -1,22 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-from datetime import datetime, date 
+from datetime import datetime, date
 from ckeditor.fields import RichTextField
 
 class category(models.Model):
     name=models.CharField(max_length=255)
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
         #return reverse('detalle-articulo', args=(str(self.id)))
         return reverse('home')
-    
+
 class Profile(models.Model):
     user=models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     bio=models.TextField()
-    profile_pic=models.ImageField(null=True, blank=True, upload_to='images/profile/')
+    profile_pic=models.ImageField(null=True, blank=True, upload_to='images/')
     website_url=models.CharField(max_length=255, null=True, blank=True)
     facebook_url=models.CharField(max_length=255, null=True, blank=True)
     instagram_url=models.CharField(max_length=255, null=True, blank=True)
@@ -43,7 +43,7 @@ class post(models.Model):
 
     def __str__(self):
         return self.title + ' | ' + str(self.author)
-    
+
     def get_absolute_url(self):
         #return reverse('detalle-articulo', args=(str(self.id)))
         return reverse('home')

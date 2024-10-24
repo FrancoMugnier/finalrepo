@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import post, category, Comment
-from .forms import formpost, editpost, CommentForm
+from .forms import formpost, editpost, CommentForm, DateFilterForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 #def home(request):
@@ -35,7 +35,7 @@ def LikeView(request, pk):
 '''
 
 class HomeView(ListView):
-    model=post 
+    model=post
     template_name='home.html'
     cats=category.objects.all()
     ordering=['-post_date']
@@ -47,17 +47,17 @@ class HomeView(ListView):
         return context
 
 def categoryListView(request):
-    cat_menu_list=category.objects.all() 
+    cat_menu_list=category.objects.all()
     return render(request, 'categorias_list.html', {'cat_menu_list':cat_menu_list})
 
 def categoryView(request, cats):
-    category_posts=post.objects.filter(category=cats) 
+    category_posts=post.objects.filter(category=cats)
     return render(request, 'categorias.html', {'cats':cats.title(), 'category_posts':category_posts})
 
 class detalle_articulo_View(DetailView):
     model=post
     template_name='detalle_articulo.html'
-    
+
     def get_context_data(self, *args, **kwargs):
         cat_menu=category.objects.all()
         context=super(detalle_articulo_View, self).get_context_data(*args, **kwargs)
@@ -72,7 +72,7 @@ class detalle_articulo_View(DetailView):
         context['total_likes']=total_likes
         context['liked']=liked
         return context
-    
+
 
 
 class agregar_post_View(CreateView):
@@ -84,7 +84,7 @@ class agregar_post_View(CreateView):
 class AddCommentView(CreateView):
     model=Comment
     form_class=CommentForm
-    template_name='add_comment.html'
+    template_name='agregar_comentarios.html'
     #fields='__all__'
     def form_valid(self, form):
         form.instance.post_id=self.kwargs['pk']
@@ -108,4 +108,24 @@ class eliminar_post_View(DeleteView):
     model=post
     template_name='eliminar_post.html'
     success_url=reverse_lazy('home')
+
+#nuevo
+def filter_by_date(request):
+    if request.method == 'POST':
+        form = DateFilterForm(request.POST)
+        if form.is_valid():
+            month = form.cleaned_data['month']
+            year = form.cleaned_data['year']
+            # Redirigir a la URL con los parámetros de año y mes seleccionados
+            return redirect('posts_by_date', year=year, month=month)
+    else:
+        form = DateFilterForm()
+
+    return render(request, 'filter_by_date.html', {'form': form})
+
+def posts_by_date(request, year, month):
+    # Filtra las publicaciones por año y mes
+    posts = post.objects.filter(post_date__year=year, post_date__month=month)
+    # Renderiza la plantilla con los resultados
+    return render(request, 'posts_by_date.html', {'posts': posts, 'year': year, 'month': month})
 

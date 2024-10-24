@@ -4,15 +4,14 @@
 {% endblock %}
 {% block content %}
 </br>
-{% if user.is_authenticated %}
-    <h1>Agregar comentario...</h1>
-    </br>
-    <div class="form-group">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-outline-secondary">Agregar comentario</button>
-    </div>
-
-
+    {% if user.is_authenticated %}
+        <h1>Agregar comentario...</h1>
+        </br>
+        <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-outline-secondary">Agregar comentario</button>
+        </div>
+    {% endif %}
 {% endblock %}
